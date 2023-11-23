@@ -1,0 +1,8 @@
+<!-- cep-consulta.component.html -->
+
+<div>
+  <h2>Consulta de CEPs</h2>
+  <input type="text" [(ngModel)]="cep" placeholder="CEP" />
+  <input type="number" [(ngModel)]="raio" placeholder="Raio (em km)" />
+  <button (click)="consultarCep(cep, raio)">Consultar</button>
+</div>
