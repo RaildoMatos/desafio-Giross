@@ -1,22 +1,21 @@
+// src/app/app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http'; // Adicione esta linha
 import { AppComponent } from './app.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
-
-import { CepConsultaComponent } from './cep-consulta/cep-consulta.component';
+import { LoginComponent } from '../login/login.component';
 import { HistoryComponent } from './history/history.component';
-
+import { AppRoutingModule } from './app-routing.module';
+import { AuthenticationComponent } from './authentication/authentication.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticationComponent,
-    CepConsultaComponent,
+    LoginComponent,
+
     HistoryComponent,
+    AuthenticationComponent,
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })

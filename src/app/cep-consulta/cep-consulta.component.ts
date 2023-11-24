@@ -1,7 +1,7 @@
 // cep-consulta.component.ts
-
-import { Component, Inject } from '@angular/core';
-import { CepConsultaService } from '../../services/cep-consulta.service';
+import { Component } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-cep-consulta',
@@ -9,14 +9,30 @@ import { CepConsultaService } from '../../services/cep-consulta.service';
   styleUrls: ['./cep-consulta.component.scss'],
 })
 export class CepConsultaComponent {
-  cep: any;
-  consultarCep(arg0: any, arg1: any) {
-    throw new Error('Method not implemented.');
-  }
-  raio: any;
+  resultadoConsulta: any;
+  raioInput: any;
+
   constructor(
-    @Inject(CepConsultaService) private cepConsultaService: CepConsultaService
+    private apiService: ApiService,
+    private authService: AuthService
   ) {}
 
-  // ...
+  consultarCep(cep: string): void {
+    if (this.authService.isAuthenticatedUser()) {
+      this.apiService.consultarCep(cep).subscribe(
+        (response: any) => {
+          this.resultadoConsulta = response;
+          this.apiService.adicionarAoHistorico(response);
+        },
+        (error: any) => {
+          console.error('Erro ao consultar CEP:', error);
+        }
+      );
+    } else {
+      console.log(
+        'Usuário não autenticado. Redirecionando para a página de login.'
+      );
+      // Adicione lógica para redirecionar para a página de login
+    }
+  }
 }

@@ -1,8 +1,27 @@
 <!-- cep-consulta.component.html -->
-
 <div>
-  <h2>Consulta de CEPs</h2>
-  <input type="text" [(ngModel)]="cep" placeholder="CEP" />
-  <input type="number" [(ngModel)]="raio" placeholder="Raio (em km)" />
-  <button (click)="consultarCep(cep, raio)">Consultar</button>
+  <h2>Consulta de CEP</h2>
+  <form (submit)="consultarCep(cepInput.value)">
+    <label for="cep">CEP:</label>
+    <input type="text" id="cep" name="cep" #cepInput required />
+    <button type="submit">Consultar</button>
+  </form>
+
+  <div *ngIf="resultadoConsulta">
+    <h3>Resultados:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>CEP</th>
+          <!-- Adicione mais colunas conforme necessário para exibir outras informações -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ resultadoConsulta.cep }}</td>
+          <!-- Adicione mais colunas conforme necessário para exibir outras informações -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

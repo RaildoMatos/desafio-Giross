@@ -1,6 +1,13 @@
 <!-- history.component.html -->
-
-<div>
+<div *ngIf="historyList && historyList.length > 0">
   <h2>Histórico de Consultas</h2>
-  <button (click)="getHistory()">Obter Histórico</button>
+  <ul>
+    <li *ngFor="let item of historyList">
+      <div>
+        Data e Hora: {{ item.timestamp | date : "dd/MM/yyyy HH:mm:ss" }}
+      </div>
+      <div>CEP: {{ item.cep }}</div>
+      <!-- Outras informações específicas da consulta -->
+    </li>
+  </ul>
 </div>
