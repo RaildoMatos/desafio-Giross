@@ -1,7 +1,6 @@
-// cep-consulta.component.ts
+// src/app/cep-consulta/cep-consulta.component.ts
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-cep-consulta',
@@ -10,19 +9,18 @@ import { AuthService } from '../auth.service';
 })
 export class CepConsultaComponent {
   resultadoConsulta: any;
-  raioInput: any;
+  historico!: any[];
+  cep: any;
+  raio: any;
+  authService: any;
 
-  constructor(
-    private apiService: ApiService,
-    private authService: AuthService
-  ) {}
+  constructor(private apiService: ApiService) {}
 
   consultarCep(cep: string): void {
     if (this.authService.isAuthenticatedUser()) {
       this.apiService.consultarCep(cep).subscribe(
         (response: any) => {
           this.resultadoConsulta = response;
-          this.apiService.adicionarAoHistorico(response);
         },
         (error: any) => {
           console.error('Erro ao consultar CEP:', error);
@@ -32,7 +30,20 @@ export class CepConsultaComponent {
       console.log(
         'Usuário não autenticado. Redirecionando para a página de login.'
       );
-      // Adicione lógica para redirecionar para a página de login
     }
   }
+
+  obterHistorico(): void {
+    this.apiService.obterHistorico().subscribe(
+      (historico: any[]) => {
+        this.historico = historico;
+      },
+      (error: any) => {
+        console.error('Erro ao obter histórico:', error);
+      }
+    );
+  }
+}
+function obterHistorico() {
+  throw new Error('Function not implemented.');
 }

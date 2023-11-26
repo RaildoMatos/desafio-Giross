@@ -7,6 +7,14 @@ import { LoginComponent } from '../login/login.component';
 import { HistoryComponent } from './history/history.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { ApiService } from 'src/services/api.service';
+import { AuthService } from './auth.service';
+import { CepConsultaModule } from 'src/cep-consulta.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,8 +23,21 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     HistoryComponent,
     AuthenticationComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    RouterModule,
+    CommonModule,
+    FormsModule,
+    CepConsultaModule,
+  ],
+  providers: [ApiService, AuthService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private router: Router) {}
+  navegarParaHistorico() {
+    this.router.navigate(['/historico']);
+  }
+}

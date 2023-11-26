@@ -1,27 +1,30 @@
-<!-- cep-consulta.component.html -->
+<!-- src/app/cep-consulta/cep-consulta.component.html -->
 <div>
-  <h2>Consulta de CEP</h2>
-  <form (submit)="consultarCep(cepInput.value)">
-    <label for="cep">CEP:</label>
-    <input type="text" id="cep" name="cep" #cepInput required />
-    <button type="submit">Consultar</button>
-  </form>
+  <h2>Consulta de CEPs</h2>
+
+  <label for="cep">CEP:</label>
+  <input type="text" id="cep" [(ngModel)]="cep" />
+
+  <label for="raio">Raio (em KM):</label>
+  <input type="number" id="raio" [(ngModel)]="raio" />
+
+  <button (click)="consultarCep(cep)">Consultar</button>
 
   <div *ngIf="resultadoConsulta">
-    <h3>Resultados:</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>CEP</th>
-          <!-- Adicione mais colunas conforme necessário para exibir outras informações -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ resultadoConsulta.cep }}</td>
-          <!-- Adicione mais colunas conforme necessário para exibir outras informações -->
-        </tr>
-      </tbody>
-    </table>
+    <h3>Resultado da Consulta</h3>
+    <!-- Exiba os resultados da consulta aqui -->
   </div>
+</div>
+
+<div>
+  <h2>Histórico de Consultas</h2>
+
+  <button (click)="obterHistorico()">Obter Histórico</button>
+
+  <ul *ngIf="historico">
+    <li *ngFor="let consulta of historico">
+      {{ consulta.cep }} - Raio: {{ consulta.raio }} - Data:
+      {{ consulta.timestamp | date : "medium" }}
+    </li>
+  </ul>
 </div>

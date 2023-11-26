@@ -1,4 +1,4 @@
-// api.service.ts
+// src/app/services/api.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,23 +7,21 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private historico: any[] = [];
-  adicionarAoHistorico(consulta: any): void {
-    this.historico.push(consulta);
+  consultarCep: any;
+  adicionarAoHistorico(response: any) {
+    throw new Error('Method not implemented.');
   }
-
-  obterHistorico(): any[] {
-    return this.historico;
-  }
-  consultarCep(cep: string): Observable<any> {
-    const url = `https://api.exemplo.com/cep/${cep}`;
-    return this.http.get(url);
-  }
-  private apiUrl = 'http://localhost:3000/api/cep'; // Atualize com o endereço do seu servidor
+  apiUrl = 'http://localhost:3000'; // Substitua pela URL da sua API
 
   constructor(private http: HttpClient) {}
-  getHistorico(): Observable<any[]> {
-    const url = `${this.apiUrl}/historico`; // Atualize conforme necessário
-    return this.http.get<any[]>(url);
+
+  // Em api.service.ts
+
+  consultarCeps(cep: string, raio: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/cep-consulta`, { cep, raio });
+  }
+
+  obterHistorico(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/history`);
   }
 }
